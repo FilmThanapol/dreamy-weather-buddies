@@ -1,5 +1,5 @@
 
-const API_KEY = '87f68f0e19164b6ca5daa6e8de7ac26b'; // OpenWeatherMap API key (public)
+const API_KEY = '421c33f2a0ca6c04aab04283ecf334a6'; // OpenWeatherMap API key (public)
 const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
 export interface WeatherResponse {
