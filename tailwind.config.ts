@@ -138,6 +138,10 @@ export default {
 						opacity: '1',
 						transform: 'scale(1)'
 					}
+				},
+				'glow': {
+					'0%, 100%': { boxShadow: '0 0 5px rgba(59, 130, 246, 0.4)' },
+					'50%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.8)' }
 				}
 			},
 			animation: {
@@ -147,7 +151,8 @@ export default {
 				'wiggle': 'wiggle 1s ease-in-out infinite',
 				'float': 'float 3s ease-in-out infinite',
 				'fade-in-up': 'fade-in-up 0.6s ease-out',
-				'scale-in': 'scale-in 0.4s ease-out'
+				'scale-in': 'scale-in 0.4s ease-out',
+				'glow': 'glow 2s ease-in-out infinite'
 			}
 		}
 	},

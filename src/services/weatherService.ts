@@ -6,6 +6,8 @@ export interface WeatherResponse {
   name: string;
   sys: {
     country: string;
+    sunrise: number;
+    sunset: number;
   };
   main: {
     temp: number;
@@ -18,6 +20,27 @@ export interface WeatherResponse {
   }>;
   wind: {
     speed: number;
+  };
+  visibility?: number;
+  uv?: number;
+}
+
+export interface ForecastResponse {
+  list: Array<{
+    dt: number;
+    main: {
+      temp: number;
+      temp_min: number;
+      temp_max: number;
+    };
+    weather: Array<{
+      main: string;
+      description: string;
+    }>;
+  }>;
+  city: {
+    name: string;
+    country: string;
   };
 }
 
@@ -44,6 +67,28 @@ export const fetchWeatherData = async (city: string): Promise<WeatherResponse> =
     return data;
   } catch (error) {
     console.error('Error fetching weather data:', error);
+    throw error;
+  }
+};
+
+export const fetch7DayForecast = async (city: string): Promise<ForecastResponse> => {
+  try {
+    console.log(`Fetching 7-day forecast for: ${city}`);
+    
+    const response = await fetch(
+      `${BASE_URL}/forecast?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`
+    );
+
+    if (!response.ok) {
+      throw new Error(`Forecast data unavailable (${response.status})`);
+    }
+
+    const data = await response.json();
+    console.log('Forecast data received:', data);
+    
+    return data;
+  } catch (error) {
+    console.error('Error fetching forecast data:', error);
     throw error;
   }
 };

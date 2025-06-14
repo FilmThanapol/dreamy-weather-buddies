@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Cloud } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface SearchBarProps {
   onSearch: (city: string) => void;
@@ -11,6 +12,7 @@ interface SearchBarProps {
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading }) => {
   const [city, setCity] = useState('');
+  const { t } = useLanguage();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,10 +27,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading }) => {
         <div className="relative">
           <Input
             type="text"
-            placeholder="Enter city name... 🌍"
+            placeholder={t('searchPlaceholder')}
             value={city}
             onChange={(e) => setCity(e.target.value)}
-            className="w-full px-4 py-3 text-lg rounded-2xl border-2 border-pastel-blue bg-white/80 backdrop-blur-sm focus:border-blue-300 focus:ring-4 focus:ring-blue-100 transition-all duration-300 placeholder:text-gray-400"
+            className="w-full px-4 py-3 text-lg rounded-2xl border-2 border-pastel-blue bg-white/80 backdrop-blur-sm focus:border-blue-300 focus:ring-4 focus:ring-blue-100 transition-all duration-300 placeholder:text-gray-400 dark:bg-gray-800/80 dark:border-gray-600 dark:text-white dark:placeholder:text-gray-400"
             disabled={isLoading}
           />
         </div>
@@ -40,10 +42,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading }) => {
           {isLoading ? (
             <div className="flex items-center justify-center gap-2">
               <Cloud className="animate-bounce-soft" size={20} />
-              <span>Searching...</span>
+              <span>{t('searching')}</span>
             </div>
           ) : (
-            'Get Weather ✨'
+            t('getWeather')
           )}
         </Button>
       </form>
