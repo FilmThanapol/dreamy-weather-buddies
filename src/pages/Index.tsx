@@ -1,17 +1,21 @@
-
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import SearchBar from '@/components/SearchBar';
-import WeatherCard from '@/components/WeatherCard';
-import ForecastCard from '@/components/ForecastCard';
-import LoadingSpinner from '@/components/LoadingSpinner';
-import SearchHistory from '@/components/SearchHistory';
-import ThemeToggle from '@/components/ThemeToggle';
-import LanguageToggle from '@/components/LanguageToggle';
-import { fetchWeatherData, fetch7DayForecast, WeatherResponse, ForecastResponse } from '@/services/weatherService';
-import { useSearchHistory } from '@/hooks/useSearchHistory';
-import { useLanguage } from '@/contexts/LanguageContext';
+import SearchBar from "@/components/SearchBar";
+import WeatherCard from "@/components/WeatherCard";
+import ForecastCard from "@/components/ForecastCard";
+import LoadingSpinner from "@/components/LoadingSpinner";
+import SearchHistory from "@/components/SearchHistory";
+import ThemeToggle from "@/components/ThemeToggle";
+import LanguageToggle from "@/components/LanguageToggle";
+import {
+  fetchWeatherData,
+  fetch7DayForecast,
+  WeatherResponse,
+  ForecastResponse,
+} from "@/services/weatherService";
+import { useSearchHistory } from "@/hooks/useSearchHistory";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface WeatherData {
   city: string;
@@ -39,24 +43,24 @@ const Index = () => {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [forecastData, setForecastData] = useState<ForecastDay[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState('today');
+  const [activeTab, setActiveTab] = useState("today");
   const { history, addToHistory } = useSearchHistory();
   const { toast } = useToast();
   const { t } = useLanguage();
 
   const formatTime = (timestamp: number) => {
-    return new Date(timestamp * 1000).toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false
+    return new Date(timestamp * 1000).toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
     });
   };
 
   const formatDate = (timestamp: number) => {
     const date = new Date(timestamp * 1000);
-    return date.toLocaleDateString('en-US', { 
-      month: 'short', 
-      day: 'numeric' 
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
     });
   };
 
@@ -66,11 +70,11 @@ const Index = () => {
     setForecastData([]);
 
     try {
-      console.log('Starting weather search for:', city);
-      
+      console.log("Starting weather search for:", city);
+
       // Fetch current weather
       const data: WeatherResponse = await fetchWeatherData(city);
-      
+
       const transformedData: WeatherData = {
         city: data.name,
         country: data.sys.country,
@@ -85,18 +89,20 @@ const Index = () => {
         visibility: data.visibility,
       };
 
-      console.log('Transformed weather data:', transformedData);
+      console.log("Transformed weather data:", transformedData);
       setWeatherData(transformedData);
       addToHistory(city);
 
       // Fetch 7-day forecast
       try {
-        const forecastResponse: ForecastResponse = await fetch7DayForecast(city);
-        
+        const forecastResponse: ForecastResponse = await fetch7DayForecast(
+          city
+        );
+
         // Group by day and take one forecast per day
         const dailyForecasts: { [key: string]: ForecastDay } = {};
-        
-        forecastResponse.list.forEach(item => {
+
+        forecastResponse.list.forEach((item) => {
           const date = formatDate(item.dt);
           if (!dailyForecasts[date]) {
             dailyForecasts[date] = {
@@ -108,27 +114,34 @@ const Index = () => {
             };
           } else {
             // Update min/max temperatures
-            dailyForecasts[date].tempMin = Math.min(dailyForecasts[date].tempMin, item.main.temp_min);
-            dailyForecasts[date].tempMax = Math.max(dailyForecasts[date].tempMax, item.main.temp_max);
+            dailyForecasts[date].tempMin = Math.min(
+              dailyForecasts[date].tempMin,
+              item.main.temp_min
+            );
+            dailyForecasts[date].tempMax = Math.max(
+              dailyForecasts[date].tempMax,
+              item.main.temp_max
+            );
           }
         });
 
         const forecastArray = Object.values(dailyForecasts).slice(0, 7);
         setForecastData(forecastArray);
       } catch (forecastError) {
-        console.warn('Could not fetch forecast data:', forecastError);
+        console.warn("Could not fetch forecast data:", forecastError);
       }
-      
+
       toast({
-        title: `${t('weatherLoaded')}`,
-        description: `${t('currentWeather')} ${transformedData.city}`,
+        title: `${t("weatherLoaded")}`,
+        description: `${t("currentWeather")} ${transformedData.city}`,
       });
     } catch (error) {
-      console.error('Weather search error:', error);
-      const errorMessage = error instanceof Error ? error.message : 'Failed to fetch weather data';
-      
+      console.error("Weather search error:", error);
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to fetch weather data";
+
       toast({
-        title: t('errorOops'),
+        title: t("errorOops"),
         description: errorMessage,
         variant: "destructive",
       });
@@ -146,21 +159,20 @@ const Index = () => {
             <ThemeToggle />
             <LanguageToggle />
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
-            {t('appTitle')}
+          <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4 inline-block">
+            {t("appTitle").replace("🌈", "")}
+            <span className="text-white">🌈</span>
           </h1>
+
           <p className="text-xl text-gray-600 dark:text-gray-400 font-medium">
-            {t('appSubtitle')}
+            {t("appSubtitle")}
           </p>
         </div>
 
         {/* Search Bar */}
         <div className="mb-8">
           <SearchBar onSearch={handleSearch} isLoading={isLoading} />
-          <SearchHistory 
-            history={history} 
-            onCitySelect={handleSearch} 
-          />
+          <SearchHistory history={history} onCitySelect={handleSearch} />
         </div>
 
         {/* Content Area */}
@@ -169,22 +181,30 @@ const Index = () => {
             <LoadingSpinner />
           ) : weatherData ? (
             <div className="w-full max-w-4xl">
-              <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+              <Tabs
+                value={activeTab}
+                onValueChange={setActiveTab}
+                className="w-full"
+              >
                 <TabsList className="grid w-full grid-cols-2 mb-8 bg-white/80 backdrop-blur-sm dark:bg-gray-800/80">
-                  <TabsTrigger value="today" className="rounded-full">{t('today')}</TabsTrigger>
-                  <TabsTrigger value="forecast" className="rounded-full">{t('forecast7day')}</TabsTrigger>
+                  <TabsTrigger value="today" className="rounded-full">
+                    {t("today")}
+                  </TabsTrigger>
+                  <TabsTrigger value="forecast" className="rounded-full">
+                    {t("forecast7day")}
+                  </TabsTrigger>
                 </TabsList>
-                
+
                 <TabsContent value="today">
                   <WeatherCard weatherData={weatherData} />
                 </TabsContent>
-                
+
                 <TabsContent value="forecast">
                   {forecastData.length > 0 ? (
                     <ForecastCard forecast={forecastData} />
                   ) : (
                     <div className="text-center text-gray-500 dark:text-gray-400">
-                      {t('fetchingWeather')}
+                      {t("fetchingWeather")}
                     </div>
                   )}
                 </TabsContent>
@@ -194,10 +214,10 @@ const Index = () => {
             <div className="text-center space-y-4 animate-fade-in-up">
               <div className="text-6xl mb-4">🌤️</div>
               <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-300">
-                {t('readyForMagic')}
+                {t("readyForMagic")}
               </h2>
               <p className="text-gray-500 dark:text-gray-400 text-lg">
-                {t('searchPrompt')}
+                {t("searchPrompt")}
               </p>
             </div>
           )}
@@ -205,9 +225,7 @@ const Index = () => {
 
         {/* Footer */}
         <div className="text-center mt-16 text-gray-400 dark:text-gray-500">
-          <p className="text-sm">
-            Made with 💖 and lots of cute animations
-          </p>
+          <p className="text-sm">{t('footerNote')}</p>
         </div>
       </div>
     </div>

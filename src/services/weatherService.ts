@@ -1,5 +1,8 @@
 
-const API_KEY = '421c33f2a0ca6c04aab04283ecf334a6'; // OpenWeatherMap API key (public)
+const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
+if (!API_KEY) {
+  throw new Error('API key is missing! Please define it in .env.local');
+}
 const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
 export interface WeatherResponse {

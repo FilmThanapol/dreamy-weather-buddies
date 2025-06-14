@@ -12,12 +12,12 @@ interface Translations {
 
 const translations: Translations = {
   appTitle: {
-    en: 'Cute Weather ☀️',
-    th: 'สภาพอากาศน่ารัก ☀️'
+    en: "What's the sky like today? 🌈",
+    th: "ฟ้าวันนี้เป็นไงนะ? 🌈"
   },
   appSubtitle: {
-    en: 'Your adorable weather companion 🌈',
-    th: 'เพื่อนคู่ใจสภาพอากาศของคุณ 🌈'
+    en: "Soft skies, sweet forecasts 💕",
+    th: "ท้องฟ้าแสนอ่อนโยน กับพยากรณ์สุดละมุน 💕"
   },
   searchPlaceholder: {
     en: 'Enter city name... 🌍',
@@ -40,12 +40,12 @@ const translations: Translations = {
     th: '☁️ กำลังดึงพยากรณ์อากาศล่าสุด ☁️'
   },
   readyForMagic: {
-    en: 'Ready for weather magic? ✨',
-    th: 'พร้อมสำหรับเวทมนตร์สภาพอากาศ? ✨'
+    en: "✨ Let's explore the sky together!",
+    th: "✨ มาสำรวจท้องฟ้าด้วยกันเถอะ!"
   },
   searchPrompt: {
-    en: 'Search for any city to see its current weather!',
-    th: 'ค้นหาเมืองใดๆ เพื่อดูสภาพอากาศปัจจุบัน!'
+   en: "Tell me a city and I’ll show you the vibe!",
+    th: "บอกชื่อเมืองมา แล้วเราจะพาไปดูบรรยากาศเลย!"
   },
   humidity: {
     en: 'Humidity 💧',
@@ -61,7 +61,7 @@ const translations: Translations = {
   },
   weatherLoaded: {
     en: 'Weather data loaded! 🌤️',
-    th: 'โหลดข้อมูลสภาพอากาศแล้ว! 🌤️'
+    th: 'โหลดข้อมูลอากาศเรียบร้อย! 🌤️'
   },
   currentWeather: {
     en: 'Current weather for',
@@ -98,7 +98,12 @@ const translations: Translations = {
   visibility: {
     en: 'Visibility 👁️',
     th: 'ทัศนวิสัย 👁️'
+  },
+    footerNote: {
+    en: 'Made with 💖, fueled by ☕, and occasionally saved by Ctrl+Z ⏪',
+    th: 'ทำด้วยใจ 💖 เสริมพลังด้วยกาแฟ ☕ และบางทีก็รอดด้วย Ctrl+Z ⏪'
   }
+
 };
 
 interface LanguageContextType {

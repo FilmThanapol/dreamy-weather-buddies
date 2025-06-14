@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Sun, Cloud, CloudRain, CloudSnow, Wind } from 'lucide-react';
 
@@ -13,12 +12,12 @@ const AnimatedWeatherIcon: React.FC<AnimatedWeatherIconProps> = ({
   size = 64, 
   className = "" 
 }) => {
-  const getWeatherIcon = () => {
-    const iconProps = {
-      size,
-      className: `${className} transition-all duration-300`
-    };
+  const iconProps = {
+    size,
+    className: `${className} transition-all duration-300`
+  };
 
+  const getWeatherIcon = () => {
     switch (condition.toLowerCase()) {
       case 'clear':
       case 'sunny':
@@ -26,78 +25,82 @@ const AnimatedWeatherIcon: React.FC<AnimatedWeatherIconProps> = ({
           <div className="relative">
             <Sun 
               {...iconProps} 
-              className={`${iconProps.className} text-weather-sunny animate-bounce-soft hover:animate-wiggle drop-shadow-lg`}
+              className={`${iconProps.className} text-yellow-400 animate-float-soft drop-shadow-md`}
             />
-            <div className="absolute inset-0 animate-ping opacity-20">
-              <Sun {...iconProps} className="text-yellow-300" />
+            <div className="absolute inset-0 animate-fade-pulse opacity-10">
+              <Sun {...iconProps} className="text-yellow-200" />
             </div>
           </div>
         );
+
       case 'clouds':
       case 'cloudy':
         return (
           <div className="relative">
             <Cloud 
               {...iconProps} 
-              className={`${iconProps.className} text-weather-cloudy animate-float hover:scale-110 drop-shadow-lg`}
+              className={`${iconProps.className} text-gray-400 animate-float-soft hover:scale-105 drop-shadow-md`}
             />
-            <div className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full animate-bounce opacity-60"></div>
+            <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-white rounded-full animate-fade-pulse opacity-50"></div>
           </div>
         );
+
       case 'rain':
       case 'drizzle':
         return (
           <div className="relative">
             <CloudRain 
               {...iconProps} 
-              className={`${iconProps.className} text-weather-rainy animate-bounce-soft hover:animate-wiggle drop-shadow-lg`}
+              className={`${iconProps.className} text-blue-400 animate-float-soft drop-shadow-md`}
             />
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
-              <div className="flex space-x-1">
-                <div className="w-1 h-4 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
-                <div className="w-1 h-3 bg-blue-300 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                <div className="w-1 h-4 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-              </div>
+            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex space-x-1">
+              <div className="w-1 h-4 bg-blue-300 rounded-full animate-drip-fall" style={{ animationDelay: '0s' }}></div>
+              <div className="w-1 h-3 bg-blue-200 rounded-full animate-drip-fall" style={{ animationDelay: '0.2s' }}></div>
+              <div className="w-1 h-4 bg-blue-300 rounded-full animate-drip-fall" style={{ animationDelay: '0.4s' }}></div>
             </div>
           </div>
         );
+
       case 'snow':
         return (
           <div className="relative">
             <CloudSnow 
               {...iconProps} 
-              className={`${iconProps.className} text-weather-snowy animate-float hover:scale-110 drop-shadow-lg`}
+              className={`${iconProps.className} text-blue-200 animate-float-soft drop-shadow-md`}
             />
             <div className="absolute inset-0 pointer-events-none">
-              <div className="w-2 h-2 bg-white rounded-full absolute top-4 left-2 animate-bounce opacity-80" style={{ animationDelay: '0s' }}></div>
-              <div className="w-1.5 h-1.5 bg-white rounded-full absolute top-6 right-3 animate-bounce opacity-60" style={{ animationDelay: '0.3s' }}></div>
-              <div className="w-2 h-2 bg-white rounded-full absolute bottom-4 left-4 animate-bounce opacity-70" style={{ animationDelay: '0.6s' }}></div>
+              <div className="w-2 h-2 bg-white rounded-full absolute top-4 left-3 animate-drip-fall" style={{ animationDelay: '0s' }}></div>
+              <div className="w-1.5 h-1.5 bg-white rounded-full absolute top-6 right-3 animate-drip-fall" style={{ animationDelay: '0.3s' }}></div>
+              <div className="w-2 h-2 bg-white rounded-full absolute bottom-4 left-5 animate-drip-fall" style={{ animationDelay: '0.6s' }}></div>
             </div>
           </div>
         );
+
       case 'mist':
       case 'fog':
         return (
           <div className="relative">
             <Cloud 
               {...iconProps} 
-              className={`${iconProps.className} text-gray-400 animate-float hover:scale-110 opacity-70 drop-shadow-lg`}
+              className={`${iconProps.className} text-gray-300 animate-float-soft opacity-70 drop-shadow`}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-30 animate-pulse"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-20 animate-fade-pulse"></div>
           </div>
         );
+
       case 'wind':
         return (
           <Wind 
             {...iconProps} 
-            className={`${iconProps.className} text-blue-400 animate-wiggle hover:scale-110 drop-shadow-lg`}
+            className={`${iconProps.className} text-blue-300 animate-float-soft drop-shadow-md`}
           />
         );
+
       default:
         return (
           <Sun 
             {...iconProps} 
-            className={`${iconProps.className} text-weather-sunny animate-bounce-soft drop-shadow-lg`}
+            className={`${iconProps.className} text-yellow-400 animate-float-soft drop-shadow-md`}
           />
         );
     }
