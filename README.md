@@ -58,7 +58,6 @@ You can deploy this project on:
 - 🌐 [Vercel](https://vercel.com/)
 - ☁️ [Netlify](https://www.netlify.com/)
 - 📦 GitHub Pages (via static export)
-- 🧭 Lovable
 - 🔧 Any Node.js-compatible hosting
 
 ---
