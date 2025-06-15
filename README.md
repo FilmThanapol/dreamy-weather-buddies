@@ -58,7 +58,7 @@ You can deploy this project on:
 - 🌐 [Vercel](https://vercel.com/)
 - ☁️ [Netlify](https://www.netlify.com/)
 - 📦 GitHub Pages (via static export)
-- 🧭 [Lovable](https://lovable.dev/projects/7dd71577-7e84-4b6b-b1ae-cbbc5d526c15)
+- 🧭 Lovable
 - 🔧 Any Node.js-compatible hosting
 
 ---
